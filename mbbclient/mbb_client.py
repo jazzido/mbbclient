@@ -20,7 +20,7 @@ class MBBClient(cmdln.Cmdln):
     ${help_list}
     """
 
-    name = 'mbb_client'
+    name = 'mbbclient'
 
     def __init__(self, *args, **kwargs):
         cmdln.Cmdln.__init__(self, *args, **kwargs)
