@@ -11,7 +11,7 @@ setup(name='mbbclient',
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-            'cmdln'
+            'cmdln', 'lxml'
           ],
       entry_points={
           'console_scripts': [
