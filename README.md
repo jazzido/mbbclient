@@ -8,6 +8,10 @@ la [Municipalidad de Bahía Blanca](http://www.bahiablanca.gov.ar)
 
     $ pip install git+https://github.com/jazzido/mbbclient.git
     
+Si no tenés `pip`, bajá el contenido de este repositorio y ejecutá
+
+    $ python setup.py install
+    
 ## Ejemplo de uso
 
     $ mbbclient
