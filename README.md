@@ -41,14 +41,29 @@ Para obtener la lista de los webservices disponibles:
 
 Métodos disponibles en un *webservice*:
 
+    
     $ mbbclient info ambiente
     Métodos disponibles en el webservice `ambiente`
+
+    Indicadores
+         Descripcion: <sin documentacion>
+          Argumentos: Key, IDPrograma, IDIndicador, AnioDesde, AnioHasta
     
-             Indicadores args: Key, IDPrograma, IDIndicador, AnioDesde, AnioHasta
-    IndicadoresResumenAnual args: Key, IDPrograma, IDIndicador, AnioDesde, AnioHasta
-                Empresas args: Key
-          ActassEmpresas args: Key, FechaDesde, FechaHasta, CodigoEmpresa
-               Denuncias args: Key, FechaDesde, FechaHasta
+    IndicadoresResumenAnual
+         Descripcion: <sin documentacion>
+          Argumentos: Key, IDPrograma, IDIndicador, AnioDesde, AnioHasta
+    
+    Empresas
+         Descripcion: Listado de empresas relacionadas al medio ambiente 
+          Argumentos: Key
+    
+    ActassEmpresas
+         Descripcion: Listado de actas labradas por el Comité Técnico Ejecutivo
+          Argumentos: Key, FechaDesde, FechaHasta, CodigoEmpresa
+    
+    Denuncias
+         Descripcion: Informe de Denuncias atendidas por el Comité Técnico Ejecutivo
+          Argumentos: Key, FechaDesde, FechaHasta
 
 Para invocar un método de un *webservice*:
 
