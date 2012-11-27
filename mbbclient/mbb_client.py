@@ -53,8 +53,11 @@ class MBBClient(cmdln.Cmdln):
         print "Métodos disponibles en el webservice `%s`" % args[0]
         print
         for method in methods:
-            print "%20s args: %s" % (method.method_name, ', '.join(method.arguments))
-
+            print method.method_name
+#            import pdb; pdb.set_trace()
+            print "     Descripcion: %s" % (unicode(method.documentation).encode('utf-8') if method.documentation != '' else '<sin documentacion>')
+            print "      Argumentos: %s" % ', '.join(method.arguments)
+            print
 
     @cmdln.option('-f', '--format', metavar='FORMAT', help='Formato de salida de los datos (%s). Default: CSV' % ', '.join(ALLOWED_FORMATS), default='CSV')
     @cmdln.option('-o', '--output', metavar='OUTPUT', help="Destino de la salida. Nombre de archivo o '-' para stdout. Default: stdout", default='-')
