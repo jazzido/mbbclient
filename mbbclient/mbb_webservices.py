@@ -1,3 +1,4 @@
+import sys
 import urllib, urllib2, urlparse
 from collections import namedtuple
 from lxml import etree
@@ -27,7 +28,9 @@ class WebServiceMethod(namedtuple('WebServiceMethod', ('method_name', 'arguments
 
     def __call__(self, **kwargs):
         """ Retorna una secuencia de `dict` cuyas keys son los nombres de los campos """
-        return self._parseResult(urllib2.urlopen(self.url + '?' + urllib.urlencode(kwargs)).read())
+        url = self.url + '?' + urllib.urlencode(kwargs)
+        print >>sys.stderr, "REQUESTING URL: %s" % url
+        return self._parseResult(urllib2.urlopen(url).read())
 
     def _parseResult(self, result):
         dataset = etree.fromstring(result)
@@ -57,7 +60,3 @@ def find_methods(wsdl):
                                  documentation=_optional_node(element.xpath("//wsdl:operation[@name='%s']/wsdl:documentation/text()" % element.attrib['name'][:-9],
                                                                             namespaces={'wsdl': 'http://schemas.xmlsoap.org/wsdl/'}))),
                etree.fromstring(wsdl).xpath("//wsdl:message[contains(@name, 'GetIn')]", namespaces={'wsdl': 'http://schemas.xmlsoap.org/wsdl/'}))
-
-
-# if __name__ == '__main__':
-#     print find_methods(urllib2.urlopen('http://www.bahiablanca.gov.ar/wsMBB/compras.asmx?WSDL').read())
