@@ -12,8 +12,8 @@ la [Municipalidad de Bahía Blanca](http://www.bahiablanca.gov.ar)
 
     $ mbbclient
     Uso:
-        mbb_client SUBCOMANDO [ARGS...]
-        mbb_client help SUBCOMANDO
+        mbbclient SUBCOMANDO [ARGS...]
+        mbbclient help SUBCOMANDO
 
     Commands:
         call           Llama a un método de un webservice
@@ -58,7 +58,8 @@ del archivo `/tmp/proveedores.json`
 El comando `call` acepta opciones para modificar el formato y destino
 de la salida:
 
-    $ mbbclient help call Llama a un método de un webservice
+    $ mbbclient help call 
+    Llama a un método de un webservice
     
     Uso: call <web_service> <method> [arg=val ...]
     
