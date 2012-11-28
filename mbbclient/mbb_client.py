@@ -7,7 +7,6 @@ from itertools import ifilter
 
 import cmdln
 import mbb_webservices
-from utils import memoize
 
 
 ALLOWED_FORMATS = ('CSV', 'JSON')
@@ -23,8 +22,6 @@ class MBBClient(cmdln.Cmdln):
 
     name = 'mbbclient'
 
-    _webservice_methods_cache = {}
-
     def __init__(self, *args, **kwargs):
         cmdln.Cmdln.__init__(self, *args, **kwargs)
         cmdln.Cmdln.do_help.aliases.append("h")
@@ -32,13 +29,10 @@ class MBBClient(cmdln.Cmdln):
     def _available_webservices(self):
         return mbb_webservices.DEFINED_WEBSERVICES.keys()
 
-
     def _webservice_methods(self, webservice):
         assert(webservice in mbb_webservices.DEFINED_WEBSERVICES.keys())
 
         return mbb_webservices.find_methods(urllib2.urlopen(mbb_webservices.DEFINED_WEBSERVICES[webservice]).read())
-
-    webservice_methods = memoize(_webservice_methods, _webservice_methods_cache, 1)
 
     def do_list(self, subcmd, opts, *args):
         """ Imprimir los web services disponibles """
@@ -54,7 +48,7 @@ class MBBClient(cmdln.Cmdln):
         
         if len(args) != 1 or args[0] not in self._available_webservices(): print_usage_and_exit()
 
-        methods = self.webservice_methods(args[0])
+        methods = self._webservice_methods(args[0])
         
         print "Métodos disponibles en el webservice `%s`" % args[0]
         print
@@ -89,11 +83,11 @@ class MBBClient(cmdln.Cmdln):
             print '\n'.join(map(lambda ws: '\t%s' % ws, self._available_webservices()))
             return 1
 
-        method = next(ifilter(lambda m: m.method_name == args[1], self.webservice_methods(web_service)))
+        method = next(ifilter(lambda m: m.method_name == args[1], self._webservice_methods(web_service)))
         if method is None:
             print "El webservice `%s` no contiene al método `%s`" % (web_service, method)
             print "Métodos disponibles:"
-            for method in self.webservice_methods(web_service):
+            for method in self._webservice_methods(web_service):
                 print "%20s args: %s" % (method.method_name, ', '.join(method.arguments))
 
             return 1
